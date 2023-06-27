@@ -1,0 +1,55 @@
+plugins {
+    id 'org.jetbrains.kotlin.plugin.serialization' version '1.7.20'
+    id 'org.jetbrains.kotlin.jvm' version '1.7.20'
+    id 'org.jetbrains.kotlinx.kover' version '0.6.1'
+    id "com.jfrog.artifactory" version "4.28.4"
+    id 'maven-publish'
+    id 'signing'
+    id "io.codearte.nexus-staging" version "0.30.0"
+}
+
+
+repositories {
+    mavenCentral()
+    maven {
+        url = artifactory_context_url
+        credentials {
+            username = artifactory_user
+            password = artifactory_password
+        }
+        allowInsecureProtocol = true
+    }
+}
+
+configurations {
+    ktlint
+}
+
+dependencies {
+    implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk8'
+    implementation 'org.jetbrains.kotlin:kotlin-reflect:1.7.22'
+    implementation 'org.assertj:assertj-core:3.18.1'
+    implementation group: 'com.jayway.jsonpath', name: 'json-path', version: '2.7.0'
+    ktlint 'com.pinterest:ktlint:0.47.0'
+    testImplementation 'org.jetbrains.kotlin:kotlin-test'
+    testImplementation 'org.jetbrains.kotlin:kotlin-test-junit'
+    implementation 'org.jetbrains.kotlinx:kotlinx-serialization-json:1.4.1'
+    implementation 'io.github.microutils:kotlin-logging-jvm:3.0.4'
+    implementation 'org.slf4j:slf4j-simple:2.0.5'
+    api 'org.json:json:20220924'
+    implementation "ru.talenttech.xqa:oknetwork:0.5.5"
+}
+
+java {
+    withJavadocJar()
+    withSourcesJar()
+}
+
+compileKotlin {
+    kotlinOptions.jvmTarget = '1.8'
+}
+
+compileTestKotlin {
+    kotlinOptions.jvmTarget = '1.8'
+}
+
