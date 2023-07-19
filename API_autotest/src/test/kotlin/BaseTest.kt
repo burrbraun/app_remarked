@@ -33,7 +33,7 @@ class BaseTest {
     fun whatsappMessageSend() {
         val whatsAppSend = APIWhatsApp()
         val now = LocalDateTime.now()
-        val request = whatsAppSend.whatsAppSendMessages("test from idea '$now'")
+        val request = whatsAppSend.whatsAppSendMessages("test from Jenkins '$now'")
         request.shouldBe(
             Condition.codeEquals(200),
             Condition.bodyParamEquals("result.status","ok"),
