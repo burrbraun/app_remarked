@@ -3,6 +3,7 @@ import junit.framework.TestCase.assertEquals
 import kotlinx.serialization.Serializable
 import org.junit.Test
 import ru.remarked.APIBookingTimeRequest
+import ru.remarked.APIWifiAuthTest
 import ru.remarked.APIWifiWebHooks
 import ru.talenttech.xqa.oknetwork.OkNetwork.restClient
 import ru.talenttech.xqa.oknetwork.actions.Condition
@@ -10,7 +11,6 @@ import ru.talenttech.xqa.oknetwork.actions.shouldBe
 import whatsapp.APIWhatsApp
 
 class BaseTest {
-
     @Test
     fun getTime() {
         val timesRequest = APIBookingTimeRequest()
@@ -38,6 +38,16 @@ class BaseTest {
             Condition.codeEquals(200),
             Condition.bodyParamEquals("result.status","ok"),
             Condition.bodyParamEquals("result.data.success", true)
+        )
+    }
+    @Test
+    fun wifiAuthNewLinePost() {
+        val apiWifiAuthTest = APIWifiAuthTest()
+        val postTime = LocalDateTime.now().minusHours(24)
+        val request = apiWifiAuthTest.APIToCreateRecordInWifiAuthBase("$postTime")
+        request.shouldBe(
+            Condition.codeEquals(200),
+            Condition.bodyParamEquals("status","OK")
         )
     }
 }
