@@ -10,51 +10,7 @@ import ru.talenttech.xqa.oknetwork.actions.shouldBe
 import whatsapp.APIWhatsApp
 
 class BaseTest {
-    @Test
-    fun testGetPetId() {
-        restClient().get(
-            url = "https://petstore.swagger.io/v2/pet/3",
-            headers = mutableMapOf(
-            "accept" to "application/json"
-        )
-        ).shouldBe(Condition.codeEquals(200),
-            Condition.bodyParamEquals("status","available")
-        )
 
-    }
-
-    @Test
-    fun createPet() {
-        restClient().post(
-            url = "https://petstore.swagger.io/v2/pet",
-            headers = mutableMapOf(
-                "accept" to "application/json",
-                "Content-Type" to "application/json"
-            ),
-            body = """{
-   "id":1373737,
-   "category":{
-      "id":13,
-      "name":"string"
-   },
-   "name":"Boggie",
-   "photoUrls":[
-      "string"
-   ],
-   "tags":[
-      {
-         "id":12,
-         "name":"string"
-      }
-   ],
-   "status":"available"
-}"""
-        ).shouldBe(
-            Condition.codeEquals(200),
-            Condition.bodyParamEquals("id", 1373737),
-            Condition.headerValueEquals("content-type", "application/json")
-        )
-    }
     @Test
     fun getTime() {
         val timesRequest = APIBookingTimeRequest()
