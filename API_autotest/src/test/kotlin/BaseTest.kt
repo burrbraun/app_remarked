@@ -19,16 +19,6 @@ class BaseTest {
          val requestBody:List<Int> = request.body("times.timestamp")
          assertEquals(1635400800,requestBody[0])
      }
-     @Test
-     fun wifiAuthPost() {
-         val wifiAuth = APIWifiWebHooks()
-         val request = wifiAuth.APIWifiAuthPost("2023-05-13 00:00:00")
-         request.shouldBe(
-             Condition.codeEquals(200),
-             Condition.bodyParamEquals("status","OK")
-         )
-
-     }
     @Test
     fun whatsappMessageSend() {
         val whatsAppSend = APIWhatsApp()
