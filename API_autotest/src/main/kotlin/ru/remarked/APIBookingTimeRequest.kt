@@ -10,7 +10,7 @@ class APIBookingTimeRequest {
             headers = mutableMapOf(
                 "Content-Type" to "application/json"
             ),
-            body = """{"method":"GetTimes","token":"","reserve_date":"$dataTime","guests_count":"2"}"""
+            body = """{"method":"GetTimes","token":"ada53d2ce8463941bb9b844f1df9be49","reserve_date":"$dataTime","guests_count":"2"}"""
         )
     }
 }
