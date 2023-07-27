@@ -3,6 +3,8 @@ import junit.framework.TestCase.assertEquals
 import kotlinx.serialization.Serializable
 import org.junit.Test
 import ru.remarked.APIBookingTimeRequest
+import ru.remarked.APIGetReserveByID
+import ru.remarked.APIGetSmsTest
 import ru.remarked.APIWifiAuthTest
 import ru.remarked.APIWifiWebHooks
 import ru.talenttech.xqa.oknetwork.OkNetwork.restClient
@@ -38,6 +40,23 @@ class BaseTest {
         request.shouldBe(
             Condition.codeEquals(200),
             Condition.bodyParamEquals("status","OK")
+        )
+    }
+    // @Test //тест в любом случае 200-тит и присылает ошибку
+    // fun getSMSCodeTest() {
+    //     val apiGetSmsTest = APIGetSmsTest()
+    //     val request = apiGetSmsTest.getSMSVerificationTest()
+    //     request.shouldBe(
+    //     Condition.codeEquals(200)
+    //     )
+    // }
+    @Test
+    fun getReserveInfoById(){
+        val apiGetReserveByID = APIGetReserveByID()
+        val request = apiGetReserveByID.getReserveInfoById("3190378")
+        request.shouldBe(
+            Condition.codeEquals(200),
+            Condition.bodyParamEquals("reserve.surname","тестова")
         )
     }
 }
