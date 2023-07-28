@@ -4,6 +4,7 @@ import junit.framework.TestCase.assertEquals
 import kotlinx.serialization.Serializable
 import org.junit.Test
 import ru.remarked.APIBookingTimeRequest
+import ru.remarked.APIGetListOfTImesAndTablesForNumOfGuests
 import ru.remarked.APIGetReserveByID
 import ru.remarked.APIGetReservesByPhone
 import ru.remarked.APIGetSmsTest
@@ -79,6 +80,15 @@ class BaseTest {
         request.shouldBe(
             Condition.codeEquals(200),
             Condition.bodyParamEquals("limit", 100)
+        )
+    }
+    @Test
+    fun getListOfTimesAndTablesForNumOfGuests() {
+        val apiGetListOfTimesAndTablesForNumOfGuests = APIGetListOfTImesAndTablesForNumOfGuests()
+        val request = apiGetListOfTimesAndTablesForNumOfGuests.getListOfTimesANdTablesForNumOfGuests("GetTimesWithTablesPeriod")
+        request.shouldBe(
+            Condition.codeEquals(200),
+            Condition.bodyParamEquals("rooms.307396.name", "Второй зал")
         )
     }
 }
