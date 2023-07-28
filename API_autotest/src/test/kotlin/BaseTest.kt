@@ -1,10 +1,13 @@
+import java.time.LocalDate
 import java.time.LocalDateTime
 import junit.framework.TestCase.assertEquals
 import kotlinx.serialization.Serializable
 import org.junit.Test
 import ru.remarked.APIBookingTimeRequest
 import ru.remarked.APIGetReserveByID
+import ru.remarked.APIGetReservesByPhone
 import ru.remarked.APIGetSmsTest
+import ru.remarked.APIReserveCreate
 import ru.remarked.APIWifiAuthTest
 import ru.remarked.APIWifiWebHooks
 import ru.talenttech.xqa.oknetwork.OkNetwork.restClient
@@ -57,6 +60,25 @@ class BaseTest {
         request.shouldBe(
             Condition.codeEquals(200),
             Condition.bodyParamEquals("reserve.surname","тестова")
+        )
+    }
+    @Test
+    fun createReserveInSystem(){
+        val apiReserveCreate = APIReserveCreate()
+        val reservePostTime = LocalDate.now().plusDays(1)
+        val request = apiReserveCreate.createReserve("$reservePostTime")
+        request.shouldBe(
+            Condition.codeEquals(200),
+            Condition.bodyParamEquals("status","success")
+        )
+    }
+    @Test
+    fun getReservesByPhoneNumber() {
+        val apiGetReservesByPhone = APIGetReservesByPhone()
+        val request = apiGetReservesByPhone.getReservesByPhoneNumber("+79999999999")
+        request.shouldBe(
+            Condition.codeEquals(200),
+            Condition.bodyParamEquals("limit", 100)
         )
     }
 }
