@@ -1,17 +1,14 @@
 import java.time.LocalDate
 import java.time.LocalDateTime
 import junit.framework.TestCase.assertEquals
-import kotlinx.serialization.Serializable
 import org.junit.Test
 import ru.remarked.APIBookingTimeRequest
 import ru.remarked.APIGetListOfTImesAndTablesForNumOfGuests
 import ru.remarked.APIGetReserveByID
 import ru.remarked.APIGetReservesByPhone
-import ru.remarked.APIGetSmsTest
+import ru.remarked.APIGetReservesToken
 import ru.remarked.APIReserveCreate
 import ru.remarked.APIWifiAuthTest
-import ru.remarked.APIWifiWebHooks
-import ru.talenttech.xqa.oknetwork.OkNetwork.restClient
 import ru.talenttech.xqa.oknetwork.actions.Condition
 import ru.talenttech.xqa.oknetwork.actions.shouldBe
 import whatsapp.APIWhatsApp
@@ -57,7 +54,7 @@ class BaseTest {
     @Test
     fun getReserveInfoById(){
         val apiGetReserveByID = APIGetReserveByID()
-        val request = apiGetReserveByID.getReserveInfoById("3190378")
+        val request = apiGetReserveByID.getReserveInfoById()
         request.shouldBe(
             Condition.codeEquals(200),
             Condition.bodyParamEquals("reserve.surname","тестова")
@@ -89,6 +86,15 @@ class BaseTest {
         request.shouldBe(
             Condition.codeEquals(200),
             Condition.bodyParamEquals("rooms.307396.name", "Второй зал")
+        )
+    }
+    @Test
+    fun getReservesTokenForApi(){
+        val apiGetReservesToken = APIGetReservesToken()
+        val request = apiGetReservesToken.getReservesAPIToken()
+        request.shouldBe(
+            Condition.codeEquals(200),
+            Condition.bodyParamEquals("token", "ada53d2ce8463941bb9b844f1df9be49")
         )
     }
 }
