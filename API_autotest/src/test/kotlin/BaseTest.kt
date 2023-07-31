@@ -106,7 +106,6 @@ class BaseTest {
         request.shouldBe(
             Condition.codeEquals(200),
             Condition.bodyParamEquals("status", "success")
-
         )
     }
 

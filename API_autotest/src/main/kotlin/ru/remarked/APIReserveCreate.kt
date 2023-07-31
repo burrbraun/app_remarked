@@ -18,7 +18,7 @@ class APIReserveCreate {
     "token": "ada53d2ce8463941bb9b844f1df9be49",
     "reserve": {
         "name": "TestClient",
-        "phone": "+79999999922",
+        "phone": "+70000000000",
         "email": "test@mail.ru",
         "date": "$reservePostTime",
         "time": "13:30",
