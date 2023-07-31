@@ -65,9 +65,10 @@ class BaseTest {
         val apiReserveCreate = APIReserveCreate()
         val reservePostTime = LocalDate.now().plusDays(1)
         val request = apiReserveCreate.createReserve("$reservePostTime")
-        request.shouldBe(
+        val requestAgain = apiReserveCreate.createReserve("$reservePostTime")
+        requestAgain.shouldBe(
             Condition.codeEquals(200),
-            Condition.bodyParamEquals("status","success")
+            Condition.bodyParamEquals("message","This Guests Has Already Reserved Place At This Date")
         )
     }
     @Test
