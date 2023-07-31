@@ -36,7 +36,6 @@ class APIReserveCreate {
     "request_id": "23214314314132"
 }
 """
-
         )
     }
 }

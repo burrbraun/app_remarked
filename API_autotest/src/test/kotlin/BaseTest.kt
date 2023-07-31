@@ -3,6 +3,7 @@ import java.time.LocalDateTime
 import junit.framework.TestCase.assertEquals
 import org.junit.Test
 import ru.remarked.APIBookingTimeRequest
+import ru.remarked.APIGetDaysStates
 import ru.remarked.APIGetListOfTImesAndTablesForNumOfGuests
 import ru.remarked.APIGetReserveByID
 import ru.remarked.APIGetReservesByPhone
@@ -98,5 +99,16 @@ class BaseTest {
             Condition.bodyParamEquals("token", "ada53d2ce8463941bb9b844f1df9be49")
         )
     }
+    @Test
+    fun getDaysStateApi() {
+        val apiGetDaysStates = APIGetDaysStates()
+        val request = apiGetDaysStates.getDaysStates()
+        request.shouldBe(
+            Condition.codeEquals(200),
+            Condition.bodyParamEquals("status", "success")
+
+        )
+    }
+
 }
 
