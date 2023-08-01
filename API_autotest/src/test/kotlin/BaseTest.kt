@@ -4,6 +4,7 @@ import junit.framework.TestCase.assertEquals
 import org.junit.Test
 import ru.remarked.APIBookingTimeRequest
 import ru.remarked.APIGetDaysStates
+import ru.remarked.APIGetGuestsData
 import ru.remarked.APIGetListOfTImesAndTablesForNumOfGuests
 import ru.remarked.APIGetReserveByID
 import ru.remarked.APIGetReservesByPhone
@@ -75,7 +76,7 @@ class BaseTest {
     @Test
     fun getReservesByPhoneNumber() {
         val apiGetReservesByPhone = APIGetReservesByPhone()
-        val request = apiGetReservesByPhone.getReservesByPhoneNumber("+79999999999")
+        val request = apiGetReservesByPhone.getReservesByPhoneNumber("+70000000000")
         request.shouldBe(
             Condition.codeEquals(200),
             Condition.bodyParamEquals("limit", 100)
@@ -108,6 +109,23 @@ class BaseTest {
             Condition.bodyParamEquals("status", "success")
         )
     }
-
+    @Test
+    fun getGuestsDataById() {
+        val apiGetGuestsData = APIGetGuestsData()
+        val request = apiGetGuestsData.getGuestsDataById()
+        request.shouldBe(
+            Condition.codeEquals(200),
+            Condition.bodyParamEquals("result.29445627.fio", " Гость в ресторане ")
+        )
+    }
+    @Test
+    fun getGuestsDataByPhone() {
+        val apiGetGuestsData = APIGetGuestsData()
+        val request = apiGetGuestsData.getGuestsDataByPhone()
+        request.shouldBe(
+            Condition.codeEquals(200),
+            Condition.bodyParamEquals("result.30422508.fio", "Тест с телефоном test")
+        )
+    }
 }
 
