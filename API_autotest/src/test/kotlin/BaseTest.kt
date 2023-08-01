@@ -3,6 +3,7 @@ import java.time.LocalDateTime
 import junit.framework.TestCase.assertEquals
 import org.junit.Test
 import ru.remarked.APIBookingTimeRequest
+import ru.remarked.APIChangeReserveStatusTest
 import ru.remarked.APIGetDaysStates
 import ru.remarked.APIGetGuestsData
 import ru.remarked.APIGetListOfTImesAndTablesForNumOfGuests
@@ -14,6 +15,7 @@ import ru.remarked.APIWifiAuthTest
 import ru.talenttech.xqa.oknetwork.actions.Condition
 import ru.talenttech.xqa.oknetwork.actions.shouldBe
 import whatsapp.APIWhatsApp
+import whatsapp.APIWhatsappMediaGetImageTest
 
 class BaseTest {
      @Test
@@ -35,6 +37,17 @@ class BaseTest {
             Condition.bodyParamEquals("result.data.success", true)
         )
     }
+    @Test
+    fun getWhatsappImage(){
+        val apiWhatsappMediaGetImageTest = APIWhatsappMediaGetImageTest()
+        val request = apiWhatsappMediaGetImageTest.whatsAppGetImage()
+        request.shouldBe(
+            Condition.codeEquals(200),
+            Condition.bodyParamEquals("result.media_info.mime","image/jpeg"),
+            Condition.bodyParamEquals("result.success", true)
+        )
+    }
+
     @Test
     fun wifiAuthNewLinePost() {
         val apiWifiAuthTest = APIWifiAuthTest()
@@ -82,6 +95,18 @@ class BaseTest {
             Condition.bodyParamEquals("limit", 100)
         )
     }
+    @Test
+    fun changeReserveStatus(){
+        val apiChangeReserveStatusTest = APIChangeReserveStatusTest()
+        val request = apiChangeReserveStatusTest.changeReserveStatus()
+        val requestAgain = apiChangeReserveStatusTest.changeReserveStatusToClose()
+        requestAgain.shouldBe(
+            Condition.codeEquals(200),
+            Condition.bodyParamEquals("status", "success")
+        )
+
+    }
+
     @Test
     fun getListOfTimesAndTablesForNumOfGuests() {
         val apiGetListOfTimesAndTablesForNumOfGuests = APIGetListOfTImesAndTablesForNumOfGuests()
