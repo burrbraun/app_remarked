@@ -140,7 +140,7 @@ class BaseTest {
         val request = apiGetGuestsData.getGuestsDataById()
         request.shouldBe(
             Condition.codeEquals(200),
-            Condition.bodyParamEquals("result.29445627.fio", " Гость в ресторане ")
+            Condition.bodyParamEquals("result.29445627.fio", "Гость в ресторане")
         )
     }
     @Test
