@@ -5,11 +5,13 @@ import org.junit.Test
 import ru.remarked.APIBookingTimeRequest
 import ru.remarked.APIChangeReserveStatusTest
 import ru.remarked.APIGetDaysStates
+import ru.remarked.APIGetEventsTest
 import ru.remarked.APIGetGuestsData
 import ru.remarked.APIGetListOfTImesAndTablesForNumOfGuests
 import ru.remarked.APIGetReserveByID
 import ru.remarked.APIGetReservesByPhone
 import ru.remarked.APIGetReservesToken
+import ru.remarked.APIGetSlotsTest
 import ru.remarked.APIReserveCreate
 import ru.remarked.APIWifiAuthTest
 import ru.talenttech.xqa.oknetwork.actions.Condition
@@ -152,5 +154,24 @@ class BaseTest {
             Condition.bodyParamEquals("result.30422508.fio", "Тест с телефоном test")
         )
     }
+    @Test
+    fun APIGetSlots() {
+        val apiGetSlotsTest = APIGetSlotsTest()
+        val request = apiGetSlotsTest.getSlots()
+        request.shouldBe(
+            Condition.codeEquals(200),
+            Condition.bodyParamEquals("status", "success")
+        )
+    }
+    @Test
+    fun APIGetEvents() {
+        val apiGetEventsTest = APIGetEventsTest()
+        val request = apiGetEventsTest.getEvents()
+        request.shouldBe(
+            Condition.codeEquals(200),
+            Condition.bodyParamEquals("status", "success")
+        )
+    }
+
 }
 
