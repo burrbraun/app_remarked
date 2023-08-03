@@ -11,7 +11,7 @@ class APIWhatsApp {
             headers = mutableMapOf(
                 "Content-Type" to "application/json"
             ),
-            body = """{"method":"RemarkedWhatsappApi.SendMessage","jsonrpc":"2.0","params":{"token":"9cacff45-b085-4971-ad10-f5630f48b9dd","phone":"+79219736779","message":"$textMessage","num":"+79516537928"}}"""
+            body = """{"method":"RemarkedWhatsappApi.SendMessage","jsonrpc":"2.0","params":{"token":"9cacff45-b085-4971-ad10-f5630f48b9dd","phone":"+79516537928","message":"$textMessage","num":"+79516537928"}}"""
 
         )
     }

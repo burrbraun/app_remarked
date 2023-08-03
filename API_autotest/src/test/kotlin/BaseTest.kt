@@ -13,7 +13,9 @@ import ru.remarked.APIGetReservesByPhone
 import ru.remarked.APIGetReservesToken
 import ru.remarked.APIGetSlotsTest
 import ru.remarked.APIReserveCreate
+import ru.remarked.APIUpdateGuestTest
 import ru.remarked.APIWifiAuthTest
+import ru.remarked.APIZumaReviewsCreateTest
 import ru.talenttech.xqa.oknetwork.actions.Condition
 import ru.talenttech.xqa.oknetwork.actions.shouldBe
 import whatsapp.APIWhatsApp
@@ -106,7 +108,6 @@ class BaseTest {
             Condition.codeEquals(200),
             Condition.bodyParamEquals("status", "success")
         )
-
     }
 
     @Test
@@ -172,6 +173,23 @@ class BaseTest {
             Condition.bodyParamEquals("status", "success")
         )
     }
-
+    @Test
+    fun APICreateReview(){
+        val apiZumaReviewsCreateTest = APIZumaReviewsCreateTest ()
+        val request = apiZumaReviewsCreateTest.createReview()
+        request.shouldBe(
+            Condition.codeEquals(200),
+            Condition.bodyParamEquals("result.status", "ok")
+        )
+    }
+    @Test
+    fun updateGuest() {
+        val apiUpdateGuestTest = APIUpdateGuestTest()
+        val request = apiUpdateGuestTest.updateGuest()
+        request.shouldBe(
+            Condition.codeEquals(200),
+            Condition.bodyParamEquals("result.status", "ok")
+        )
+    }
 }
 
