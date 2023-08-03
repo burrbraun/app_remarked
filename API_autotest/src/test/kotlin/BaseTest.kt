@@ -12,6 +12,7 @@ import ru.remarked.APIGetReserveByID
 import ru.remarked.APIGetReservesByPhone
 import ru.remarked.APIGetReservesToken
 import ru.remarked.APIGetSlotsTest
+import ru.remarked.APILoyaltiV1GetGuests
 import ru.remarked.APIReserveCreate
 import ru.remarked.APIUpdateGuestTest
 import ru.remarked.APIWifiAuthTest
@@ -189,6 +190,14 @@ class BaseTest {
         request.shouldBe(
             Condition.codeEquals(200),
             Condition.bodyParamEquals("result.status", "ok")
+        )
+    }
+    @Test //на текущий момент (2 августа 2023) проверка идет номинальная по коду ответа сервера - 200 - ок
+    fun getGuestsLoyaltiV1() {
+        val apiLoyaltiV1GetGuests = APILoyaltiV1GetGuests()
+        val request = apiLoyaltiV1GetGuests.getLoyaltiV1()
+        request.shouldBe(
+            Condition.codeEquals(200)
         )
     }
 }
