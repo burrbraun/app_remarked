@@ -5,6 +5,7 @@ import ru.talenttech.xqa.oknetwork.response.Response
 
 class APIGetEventsTest {
     fun getEvents(): Response {
+        val reserveToken = System.getenv("RESERVES_TOKEN")
         return OkNetwork.restClient().post(
             url = "https://app.remarked.ru/api/v1/ApiReservesWidget",
             headers = mutableMapOf(
@@ -12,7 +13,7 @@ class APIGetEventsTest {
             ),
             body = """{
    "method": "GetEventTags",
-   "token": "ada53d2ce8463941bb9b844f1df9be49"
+   "token": "$reserveToken"
 }"""
         )
     }

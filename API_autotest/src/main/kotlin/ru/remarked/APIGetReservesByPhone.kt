@@ -6,6 +6,7 @@ import ru.talenttech.xqa.oknetwork.response.Response
 class APIGetReservesByPhone {
     fun getReservesByPhoneNumber(reserveByPhone: String) : Response {
         val reservePhoneNumber = "+79999999999"
+        val reserveToken = System.getenv("RESERVES_TOKEN")
         return OkNetwork.restClient().post(
             url = "https://app.remarked.ru/api/v1/ApiReservesWidget",
             headers = mutableMapOf(
@@ -13,7 +14,7 @@ class APIGetReservesByPhone {
             ),
             body = """{
 	"method":"GetReservesByPhone",
-	"token":"ada53d2ce8463941bb9b844f1df9be49",
+	"token":"$reserveToken",
 	"phone": "$reservePhoneNumber",
 	"request_id": "23234345"
 }"""

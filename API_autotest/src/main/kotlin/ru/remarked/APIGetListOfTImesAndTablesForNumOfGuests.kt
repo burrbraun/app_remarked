@@ -6,6 +6,7 @@ import ru.talenttech.xqa.oknetwork.response.Response
 class APIGetListOfTImesAndTablesForNumOfGuests {
     fun getListOfTimesANdTablesForNumOfGuests(textMessage:String): Response {
         val method = "GetTimesWithTablesPeriod"
+        val reserveToken = System.getenv("RESERVES_TOKEN")
         return OkNetwork.restClient().post(
             url = "https://app.remarked.ru/api/v1/ApiReservesWidget",
             headers = mutableMapOf(
@@ -13,7 +14,7 @@ class APIGetListOfTImesAndTablesForNumOfGuests {
             ),
             body = """{
 	"method": "$method",
-	"token": "ada53d2ce8463941bb9b844f1df9be49",
+	"token": "$reserveToken",
 	"request_id":  "2132314",
 	"reserve_date_period":
 {

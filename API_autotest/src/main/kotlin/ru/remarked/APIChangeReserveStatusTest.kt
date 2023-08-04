@@ -21,6 +21,7 @@ class APIChangeReserveStatusTest {
     }
 
     fun changeReserveStatusToClose():Response {
+        val reserveToken = System.getenv("RESERVES_TOKEN")
         return OkNetwork.restClient().post(
             url = "https://app.remarked.ru/api/v1/ApiReservesWidget",
             headers = mutableMapOf(
@@ -28,7 +29,7 @@ class APIChangeReserveStatusTest {
             ),
             body = """{
     "method": "ChangeReserveStatus",
-    "token": "ada53d2ce8463941bb9b844f1df9be49",
+    "token": "$reserveToken",
     "reserve_id": "3246291",
     "status": "closed",
     "request_id": "5467486758"

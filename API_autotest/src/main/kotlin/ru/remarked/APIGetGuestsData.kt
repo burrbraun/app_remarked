@@ -5,6 +5,7 @@ import ru.talenttech.xqa.oknetwork.response.Response
 
 class APIGetGuestsData {
     fun getGuestsDataById(): Response {
+        val guestsToken = System.getenv("GUESTS_API_TOKEN")
         return OkNetwork.restClient().post(
             url = "https://app.remarked.ru/api/v1/api",
             headers = mutableMapOf(
@@ -15,13 +16,14 @@ class APIGetGuestsData {
     "id": 1234567890,
     "method": "GuestsApi.GetGuestsData",
     "params":
-    {"token": "x1f65bb3b99200cd5a643cb88fe3d4bf",
+    {"token": "$guestsToken",
     "id": "29445627"
     }
 }"""
         )
     }
     fun getGuestsDataByPhone(): Response{
+        val guestsToken = System.getenv("GUESTS_API_TOKEN")
         return OkNetwork.restClient().post(
             url = "https://app.remarked.ru/api/v1/api",
             headers = mutableMapOf(
@@ -32,7 +34,7 @@ class APIGetGuestsData {
     "id": 7806087,
     "method": "GuestsApi.GetGuestsData",
     "params":
-    {"token": "x1f65bb3b99200cd5a643cb88fe3d4bf",
+    {"token": "$guestsToken",
     "phone": "+71234567890"
     }
 }"""

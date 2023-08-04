@@ -5,6 +5,7 @@ import ru.talenttech.xqa.oknetwork.response.Response
 
 class APIZumaReviewsCreateTest {
     fun createReview(): Response {
+        val reviewsToken = System.getenv("REVIEW_API_TOKEN")
         return OkNetwork.restClient().post(
             url = "https://app.remarked.ru/api/v1/api",
             headers = mutableMapOf(
@@ -14,7 +15,7 @@ class APIZumaReviewsCreateTest {
    "method": "ZumaReviewsApi.CreateReview",
    "jsonrpc": "2.0",
    "params": {
-       "token": "22e9b8cc87097bbd24e69d95b8c6bc7f",
+       "token": "$reviewsToken",
        "fields": {
            "date": "22-08-01 12:12:12",
            "author": "Matroskin the cat",

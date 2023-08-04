@@ -5,6 +5,7 @@ import ru.talenttech.xqa.oknetwork.response.Response
 
 class APILoyaltiV1GetGuests {
     fun getLoyaltiV1(): Response {
+        val loyaltyToken = System.getenv("LOYALTY_API_TOKEN")
         return OkNetwork.restClient().post(
             url = "https://app.remarked.ru/api/v1/api",
             headers = mutableMapOf(
@@ -14,7 +15,7 @@ class APILoyaltiV1GetGuests {
    "jsonrpc":"2.0",
    "method":"LoyaltyV1API.GetGuest",
    "params":{
-       "token":"9d20e6f5bf9cb231cebf54ea1d1d570c",
+       "token":"$loyaltyToken",
        "card_number":"12345678",
        "id":12345678
    },

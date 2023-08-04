@@ -5,6 +5,7 @@ import ru.talenttech.xqa.oknetwork.response.Response
 
 class APIGetSlotsTest {
     fun getSlots(): Response {
+        val reserveToken = System.getenv("RESERVES_TOKEN")
         return OkNetwork.restClient().post(
             url = "https://app.remarked.ru/api/v1/ApiReservesWidget",
             headers = mutableMapOf(
@@ -12,7 +13,7 @@ class APIGetSlotsTest {
             ),
             body = """{
    "method": "GetSlots",
-   "token": "ada53d2ce8463941bb9b844f1df9be49",
+   "token": "$reserveToken",
    "reserve_date_period": {
        "from":"2023-03-01",
        "to":"2023-03-31"

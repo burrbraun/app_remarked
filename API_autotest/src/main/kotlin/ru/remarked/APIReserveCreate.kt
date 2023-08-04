@@ -8,6 +8,7 @@ import ru.talenttech.xqa.oknetwork.response.Response
 class APIReserveCreate {
     fun createReserve(reservePostTime:String): Response {
         //val reservePostTime = LocalDate.now()
+        val reserveToken = System.getenv("RESERVES_TOKEN")
         return OkNetwork.restClient().post(
             url = "https://app.remarked.ru/api/v1/ApiReservesWidget",
             headers = mutableMapOf(
@@ -15,7 +16,7 @@ class APIReserveCreate {
             ),
             body = """ {
     "method": "CreateReserve",
-    "token": "ada53d2ce8463941bb9b844f1df9be49",
+    "token": "$reserveToken",
     "reserve": {
         "name": "TestClient",
         "phone": "+70000000000",

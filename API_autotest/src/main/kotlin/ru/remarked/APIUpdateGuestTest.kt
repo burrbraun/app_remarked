@@ -5,6 +5,7 @@ import ru.talenttech.xqa.oknetwork.response.Response
 
 class APIUpdateGuestTest {
     fun updateGuest(): Response {
+        val guestsToken = System.getenv("GUESTS_API_TOKEN")
         return OkNetwork.restClient().post(
             url = "https://app.remarked.ru/api/v1/api",
             headers = mutableMapOf(
@@ -15,7 +16,7 @@ class APIUpdateGuestTest {
     "id": 1234567890,
     "method": "GuestsApi.UpdateGuest",
     "params": {
-        "token": "x1f65bb3b99200cd5a643cb88fe3d4bf",
+        "token": "$guestsToken",
         "id": "29445627",
         "fields": {"email": "test@test.ru"
         }
