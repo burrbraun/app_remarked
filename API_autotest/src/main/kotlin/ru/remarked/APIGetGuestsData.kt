@@ -17,7 +17,7 @@ class APIGetGuestsData {
     "method": "GuestsApi.GetGuestsData",
     "params":
     {"token": "$guestsToken",
-    "id": "29445627"
+    "id": "41057243"
     }
 }"""
         )
@@ -35,7 +35,7 @@ class APIGetGuestsData {
     "method": "GuestsApi.GetGuestsData",
     "params":
     {"token": "$guestsToken",
-    "phone": "+71234567890"
+    "phone": "+70001223334"
     }
 }"""
         )

@@ -144,7 +144,7 @@ class BaseTest {
         val request = apiGetGuestsData.getGuestsDataById()
         request.shouldBe(
             Condition.codeEquals(200),
-            Condition.bodyParamEquals("result.29445627.fio", "Гость в ресторане")
+            Condition.bodyParamEquals("result.41057243.fio", "Jenkins TestBot")
         )
     }
     @Test
@@ -153,7 +153,7 @@ class BaseTest {
         val request = apiGetGuestsData.getGuestsDataByPhone()
         request.shouldBe(
             Condition.codeEquals(200),
-            Condition.bodyParamEquals("result.30422508.fio", "Тест с телефоном test")
+            Condition.bodyParamEquals("result.41057243.fio", "Jenkins TestBot")
         )
     }
     @Test
