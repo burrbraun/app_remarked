@@ -12,6 +12,7 @@ import ru.remarked.APIGetReserveByID
 import ru.remarked.APIGetReservesByPhone
 import ru.remarked.APIGetReservesToken
 import ru.remarked.APIGetSlotsTest
+import ru.remarked.APIGetSmsTest
 import ru.remarked.APILoyaltiV1GetGuests
 import ru.remarked.APIReserveCreate
 import ru.remarked.APIUpdateGuestTest
@@ -21,9 +22,11 @@ import ru.talenttech.xqa.oknetwork.actions.Condition
 import ru.talenttech.xqa.oknetwork.actions.shouldBe
 import whatsapp.APIWhatsApp
 import whatsapp.APIWhatsappMediaGetImageTest
+//import io.qameta.allure.AllureId
 
 class BaseTest {
      @Test
+     //@AllureId("167")
      fun getTime() {
          val timesRequest = APIBookingTimeRequest()
          val request = timesRequest.timesRequest("2021-10-28")
@@ -32,6 +35,7 @@ class BaseTest {
          assertEquals(1635400800,requestBody[0])
      }
     @Test
+    //@AllureId("166")
     fun whatsappMessageSend() {
         val whatsAppSend = APIWhatsApp()
         val now = LocalDateTime.now()
@@ -43,6 +47,39 @@ class BaseTest {
         )
     }
     @Test
+    fun whatsappMessageWrongTokenSend() {
+        val whatsAppSend = APIWhatsApp()
+        val now = LocalDateTime.now()
+        val request = whatsAppSend.whatsAppIncorrectTokenMessagesSend("test from Jenkins '$now'")
+        request.shouldBe(
+            Condition.codeEquals(401),
+            Condition.bodyParamEquals("error.message", "Unauthorized")
+        )
+    }
+    @Test
+    fun whatsAppWrongNumberMessageSend() {
+        val whatsAppSend = APIWhatsApp()
+        val now = LocalDateTime.now()
+        val request = whatsAppSend.whatsAppIncorrectPhoneNumberMessageSend("test from Jenkins '$now'")
+        request.shouldBe(
+            Condition.codeEquals(200),
+            Condition.bodyParamEquals("result.status","ok"),
+            Condition.bodyParamEquals("result.data.error", true)
+        )
+    }
+
+    @Test
+    fun whatsAppIncorrectTokenTest() {
+        val apiWhatsApp = APIWhatsApp()
+        val now = LocalDateTime.now()
+        val request = apiWhatsApp.whatsAppIncorrectTokenMessagesSend("test from Jenkins '$now'")
+        request.shouldBe(
+            Condition.codeEquals(401),
+            Condition.bodyParamEquals("error.message","Unauthorized")
+        )
+    }
+    @Test
+    //@AllureId("168")
     fun getWhatsappImage(){
         val apiWhatsappMediaGetImageTest = APIWhatsappMediaGetImageTest()
         val request = apiWhatsappMediaGetImageTest.whatsAppGetImage()
@@ -54,6 +91,7 @@ class BaseTest {
     }
 
     @Test
+    //@AllureId("169") //тест создает новую запись в отчете вай фай авторизаций по телефону
     fun wifiAuthNewLinePost() {
         val apiWifiAuthTest = APIWifiAuthTest()
         val postTime = LocalDateTime.now().minusHours(24)
@@ -63,15 +101,28 @@ class BaseTest {
             Condition.bodyParamEquals("status","OK")
         )
     }
-    // @Test //тест в любом случае 200-тит и присылает ошибку
-    // fun getSMSCodeTest() {
-    //     val apiGetSmsTest = APIGetSmsTest()
-    //     val request = apiGetSmsTest.getSMSVerificationTest()
-    //     request.shouldBe(
-    //     Condition.codeEquals(200)
-    //     )
-    // }
+
     @Test
+    fun wifiAuthInvalidTokenResponseCheck() {
+        val apiWifiAuthTest = APIWifiAuthTest()
+        val postTime = LocalDateTime.now().minusHours(24)
+        val request = apiWifiAuthTest.APIToCheckInvalidTokenWifiAuth("$postTime")
+        request.shouldBe(
+            Condition.codeEquals(200),
+            Condition.bodyParamEquals("status","error"),
+            Condition.bodyParamEquals("message", "invalid token")
+        )
+    }
+     @Test //тест в любом случае 200-тит и присылает ошибку
+     fun getSMSCodeTest() {
+         val apiGetSmsTest = APIGetSmsTest()
+         val request = apiGetSmsTest.getSMSVerificationTest()
+         request.shouldBe(
+         Condition.codeEquals(200)
+         )
+     }
+    @Test
+    //@AllureId("170")
     fun getReserveInfoById(){
         val apiGetReserveByID = APIGetReserveByID()
         val request = apiGetReserveByID.getReserveInfoById()
@@ -81,6 +132,7 @@ class BaseTest {
         )
     }
     @Test
+   // @AllureId("171")
     fun createReserveInSystem(){
         val apiReserveCreate = APIReserveCreate()
         val reservePostTime = LocalDate.now().plusDays(1)
@@ -92,6 +144,7 @@ class BaseTest {
         )
     }
     @Test
+    //@AllureId("172")
     fun getReservesByPhoneNumber() {
         val apiGetReservesByPhone = APIGetReservesByPhone()
         val request = apiGetReservesByPhone.getReservesByPhoneNumber("+70000000000")
@@ -101,6 +154,7 @@ class BaseTest {
         )
     }
     @Test
+   // @AllureId("173")
     fun changeReserveStatus(){
         val apiChangeReserveStatusTest = APIChangeReserveStatusTest()
         val request = apiChangeReserveStatusTest.changeReserveStatus()
@@ -112,6 +166,7 @@ class BaseTest {
     }
 
     @Test
+    //@AllureId("174")
     fun getListOfTimesAndTablesForNumOfGuests() {
         val apiGetListOfTimesAndTablesForNumOfGuests = APIGetListOfTImesAndTablesForNumOfGuests()
         val request = apiGetListOfTimesAndTablesForNumOfGuests.getListOfTimesANdTablesForNumOfGuests("GetTimesWithTablesPeriod")
@@ -121,6 +176,7 @@ class BaseTest {
         )
     }
     @Test
+   // @AllureId("175")
     fun getReservesTokenForApi(){
         val apiGetReservesToken = APIGetReservesToken()
         val request = apiGetReservesToken.getReservesAPIToken()
@@ -130,6 +186,7 @@ class BaseTest {
         )
     }
     @Test
+   // @AllureId("176")
     fun getDaysStateApi() {
         val apiGetDaysStates = APIGetDaysStates()
         val request = apiGetDaysStates.getDaysStates()
@@ -139,6 +196,7 @@ class BaseTest {
         )
     }
     @Test
+   // @AllureId("177")
     fun getGuestsDataById() {
         val apiGetGuestsData = APIGetGuestsData()
         val request = apiGetGuestsData.getGuestsDataById()
@@ -148,6 +206,7 @@ class BaseTest {
         )
     }
     @Test
+   // @AllureId("178")
     fun getGuestsDataByPhone() {
         val apiGetGuestsData = APIGetGuestsData()
         val request = apiGetGuestsData.getGuestsDataByPhone()
@@ -157,6 +216,7 @@ class BaseTest {
         )
     }
     @Test
+   // @AllureId("179")
     fun APIGetSlots() {
         val apiGetSlotsTest = APIGetSlotsTest()
         val request = apiGetSlotsTest.getSlots()
@@ -166,6 +226,7 @@ class BaseTest {
         )
     }
     @Test
+   // @AllureId("180")
     fun APIGetEvents() {
         val apiGetEventsTest = APIGetEventsTest()
         val request = apiGetEventsTest.getEvents()
@@ -175,6 +236,7 @@ class BaseTest {
         )
     }
     @Test
+   // @AllureId("181")
     fun APICreateReview(){
         val apiZumaReviewsCreateTest = APIZumaReviewsCreateTest ()
         val request = apiZumaReviewsCreateTest.createReview()
@@ -184,6 +246,7 @@ class BaseTest {
         )
     }
     @Test
+   // @AllureId("182")
     fun updateGuest() {
         val apiUpdateGuestTest = APIUpdateGuestTest()
         val request = apiUpdateGuestTest.updateGuest()
@@ -192,7 +255,8 @@ class BaseTest {
             Condition.bodyParamEquals("result.status", "ok")
         )
     }
-    @Test //на текущий момент (2 августа 2023) проверка идет номинальная по коду ответа сервера - 200 - ок
+    @Test
+   // @AllureId("183") //на текущий момент (2 августа 2023) проверка идет номинальная по коду ответа сервера - 200 - ок
     fun getGuestsLoyaltiV1() {
         val apiLoyaltiV1GetGuests = APILoyaltiV1GetGuests()
         val request = apiLoyaltiV1GetGuests.getLoyaltiV1()
