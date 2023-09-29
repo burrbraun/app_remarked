@@ -195,6 +195,27 @@ class BaseTest {
             Condition.bodyParamEquals("status", "success")
         )
     }
+
+    @Test
+    fun getDaysStateApiWrongToken() {
+        val apiGetDaysStates = APIGetDaysStates()
+        val request = apiGetDaysStates.getDaysStatesWrongToken()
+        request.shouldBe(
+            Condition.codeEquals(200),
+            Condition.bodyParamEquals("status", "error")
+        )
+    }
+
+    @Test
+    fun getDaysStateApiWrongDaysPeriod() {
+        val apiGetDaysStates = APIGetDaysStates()
+        val request = apiGetDaysStates.getDaysStateWrongTimePeriod()
+        request.shouldBe(
+            Condition.codeEquals(200),
+            Condition.bodyParamEquals("status", "error")
+        )
+    }
+
     @Test
    // @AllureId("177")
     fun getGuestsDataById() {
