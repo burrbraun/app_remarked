@@ -144,6 +144,20 @@ class BaseTest {
         )
     }
     @Test
+    fun createSameReserveInSystem() {
+        val apiReserveCreate = APIReserveCreate()
+        val request = apiReserveCreate.createReserveForTheFixedTimeAndGuest()
+        request.shouldBe(
+            Condition.codeEquals(200),
+            Condition.bodyParamEquals("status", "error")
+        )
+        val requestAgain = apiReserveCreate.createReserveForTheSameTimeAndGuest()
+        requestAgain.shouldBe(
+            Condition.codeEquals(200),
+            Condition.bodyParamEquals("message","This Guests Has Already Reserved Place At This Date")
+        )
+    }
+    @Test
     //@AllureId("172")
     fun getReservesByPhoneNumber() {
         val apiGetReservesByPhone = APIGetReservesByPhone()
